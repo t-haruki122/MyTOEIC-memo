@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOEIC 解答メモ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>TOEIC 解答メモ帳 📝</h1>
+
+        <div class="control-panel">
+            <div class="input-group">
+                <label for="numQuestions">問題数 (4択の組):</label>
+                <input type="number" id="numQuestions" min="1" value="10">
+            </div>
+            <div class="button-group">
+                <button id="generate-btn">生成</button>
+                <button id="reset-btn" class="reset-button">リセット</button>
+            </div>
+        </div>
+
+        <div id="questions-area">
+            </div>
+
+        <div id="results-area">
+            <h2>✅ 解答一覧</h2>
+            <p id="results-text">問題数を設定して「生成」ボタンを押してください。</p>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
