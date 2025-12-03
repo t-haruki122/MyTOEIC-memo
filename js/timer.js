@@ -8,6 +8,7 @@ let lastSetTime = TOTAL_SECONDS;
 const timerDisplay = document.getElementById('timer-display');
 const startButton = document.getElementById('start-button');
 const resetButton = document.getElementById('reset-button');
+const timerAlarm = document.getElementById('timer-alarm');
 
 // 秒を MM:SS 形式にフォーマットする関数
 function formatTime(seconds) {
@@ -39,6 +40,19 @@ function parseTime(timeString) {
         }
     }
     return null; // 無効な形式
+}
+
+// アラーム音を再生する関数
+function playAlarm() {
+    // 再生位置を最初に戻してから再生 (続けて何度も鳴らす場合に備えて)
+    timerAlarm.currentTime = 0;
+    timerAlarm.play();
+}
+
+// アラーム音を停止する関数
+function stopAlarm() {
+    timerAlarm.pause();
+    timerAlarm.currentTime = 0;
 }
 
 // カウントダウンを開始/一時停止する関数
@@ -76,12 +90,17 @@ function toggleTimer() {
             timeRemaining--;
             updateTimerDisplay();
 
-            if (timeRemaining <= 0) {
+            if (timeRemaining < 0) {
                 clearInterval(timerInterval); // タイマーを停止
                 isRunning = false;
                 startButton.textContent = '開始';
                 timerDisplay.contentEditable = true; // 編集可能にする
+
+                playAlarm(); // アラーム音を再生
+
                 alert('時間切れです！'); // 時間切れを通知
+
+                stopAlarm(); // アラーム音を停止
 
                 timeRemaining = lastSetTime;
                 updateTimerDisplay();
@@ -95,7 +114,7 @@ function resetTimer() {
     clearInterval(timerInterval);
     isRunning = false;
     
-    // ★修正★ リセット時は、最後に保存された時間 (lastSetTime) を使用する
+    // リセット時は、最後に保存された時間 (lastSetTime) を使用する
     timeRemaining = lastSetTime;
     
     startButton.textContent = 'タイマー開始';
