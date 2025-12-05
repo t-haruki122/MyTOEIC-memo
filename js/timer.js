@@ -88,9 +88,14 @@ function toggleTimer() {
 
         // モバイル対策
         timerAlarm.volume = 0.01;
-        timerAlarm.play().each(e => console.log('Autoplay blocked:', e));
-        timerAlarm.pause();
-        timerAlarm.volume = 1.0;
+        timerAlarm.play().catch(e => {
+            console.log('Autoplay blocked:', e);
+            // エラーが発生しても処理を継続するために、ここでは何もしない
+        }).finally(() => {
+            // play()の成功・失敗に関わらず実行
+            timerAlarm.pause(); // すぐに停止
+            timerAlarm.volume = 1.0; // 音量を元に戻す (アラームに備える)
+        });
 
         timerInterval = setInterval(() => {
             timeRemaining--;
