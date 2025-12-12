@@ -141,8 +141,71 @@ h1 {
 }
 
 /* ====================
+    採点エリア
+   ==================== */
+.scorings-container {
+    display: flex;
+    gap: 15px;
+    margin-left: 5rem;
+}
+
+.scoring {
+    padding: 12px 18px; /* パディングを大きく */
+    border: 2px solid #aaaaaa;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    user-select: none;
+    font-weight: bold;
+    font-size: 1.2em; /* フォントサイズを大きく */
+    min-width: 40px; /* 最小幅を設定 */
+    text-align: center;
+    color: #aaaaaa;
+}
+
+.scoring:hover {
+    background-color: #cccccc;
+}
+
+.scoring.selected.ok {
+    background-color: #ff7777;
+    color: #ffffff;
+    border-color: #ff0000;
+}
+
+.scoring.selected.ng {
+    background-color: #7777ff;
+    color: #ffffff;
+    border-color: #0000ff;
+}
+
+/* ====================
     結果エリア
    ==================== */
+#score-area {
+    margin-top: 40px;
+    padding: 20px;
+    border: 3px solid #28a745;
+    border-radius: 8px;
+    background-color: #f0fff4;
+}
+
+#score-area h2 {
+    color: #28a745;
+    margin-top: 0;
+}
+
+#score-text {
+    font-size: 1.1em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.6;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
 #results-area {
     margin-top: 40px;
     padding: 20px;
