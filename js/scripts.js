@@ -155,6 +155,16 @@ function updateScorings() {
         scoringString += `（${((correctCount / questionNumbers.length) * 100).toFixed(2)}%）`;
         scoringString += `、採点されていない問題数：${questionNumbers.length - correctCount - Object.values(scores).filter(ans => ans === 'NG').length}`;
     }
+
+    // TOEICスコア換算
+    if (questionNumbers.length == 100) { // 495点満点
+        const toeicScore = Math.round((correctCount / 100) * 495);
+        scoringString += `\nTOEICスコア換算: ${toeicScore}点 / 495点`;
+    } else if (questionNumbers.length == 200) { // 990点満点
+        const toeicScore = Math.round((correctCount / 200) * 990);
+        scoringString += `\nTOEICスコア換算: ${toeicScore}点 / 990点`;
+    }
+    
     scoreText.textContent = scoringString || '採点結果がありません。';
 }
 
