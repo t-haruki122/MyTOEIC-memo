@@ -229,3 +229,39 @@ h1 {
     border-radius: 4px;
     border: 1px solid #ddd;
 }
+
+@media (max-width: 768px) {
+
+    /* 選択肢と採点エリアを収めるための全体調整 */
+    .question {
+        padding: 5px 0; /* 上下のパディングをさらに縮小 */
+        align-items: flex-start; /* 縦方向の揃えを上端に変更 */
+    }
+
+    /* 問題番号の幅を縮小 */
+    .question-number {
+        font-size: 1.1em;
+        margin-right: 10px;
+        width: 60px; /* 80px から 60px に縮小 */
+    }
+
+    /* 選択肢のサイズ縮小 */
+    .option {
+        padding: 8px 12px; /* パディングを縮小 (12px 18px -> 8px 12px) */
+        font-size: 1.0em; /* フォントサイズを縮小 (1.2em -> 1.0em) */
+        min-width: 30px; /* 最小幅を縮小 (40px -> 30px) */
+    }
+
+    /* 採点ボタンの親コンテナのマージンを削除 */
+    .scorings-container {
+        gap: 10px;      /* ボタン間の間隔を縮小 (15px -> 10px) */
+        margin-left: 1rem; /* 5rem から 1rem に大幅縮小 */
+    }
+
+    /* 採点ボタン（マルバツ）のサイズ縮小 */
+    .scoring {
+        padding: 8px 12px; /* パディングを縮小 (12px 18px -> 8px 12px) */
+        font-size: 1.0em; /* フォントサイズを縮小 (1.2em -> 1.0em) */
+        min-width: 30px; /* 最小幅を縮小 (40px -> 30px) */
+    }
+}
