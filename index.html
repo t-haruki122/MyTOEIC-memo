@@ -26,6 +26,27 @@
         </div>
 
         <div id="main-screen" class="screen">
+            <div id="score-area">
+                <h2>🥇 採点結果</h2>
+                <div id="score-summary" class="score-summary" aria-live="polite">
+                    <div class="score-card">
+                        <div class="score-label">正答率</div>
+                        <div id="score-percent" class="score-value">0.00%</div>
+                        <div class="score-sub" style="visibility: hidden; opacity: 0; pointer-events: none;">&nbsp;</div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-label">正解 / 問題数</div>
+                        <div id="score-count" class="score-value">0 / 0</div>
+                        <div id="score-unanswered" class="score-sub">未採点: 0問</div>
+                    </div>
+                    <div id="score-toeic-card" class="score-card" hidden>
+                        <div class="score-label">TOEICスコア換算</div>
+                        <div id="score-toeic" class="score-value">0点 / 495点</div>
+                        <div class="score-sub" style="visibility: hidden; opacity: 0; pointer-events: none;">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+
             <div id="timer-container">
                 <h2>残り時間</h2>
                 <div id="timer-display" contenteditable="true">60:00</div>
@@ -36,11 +57,6 @@
             <audio id="timer-alarm" src="sounds/alarm.mp3" preload="auto"></audio>
 
             <div id="questions-area"></div>
-
-            <div id="score-area">
-                <h2>🥇 採点結果</h2>
-                <p id="score-text">採点結果がありません。</p>
-            </div>
 
             <div id="results-area">
                 <h2>✅ 解答一覧</h2>

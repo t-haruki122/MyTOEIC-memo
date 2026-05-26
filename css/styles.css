@@ -206,26 +206,131 @@ h1 {
    ==================== */
 #score-area {
     margin-top: 40px;
-    padding: 20px;
-    border: 3px solid #28a745;
-    border-radius: 8px;
-    background-color: #f0fff4;
+    padding: 24px;
+    border: 1px solid #dee2e6;
+    border-radius: 16px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 #score-area h2 {
-    color: #28a745;
+    color: #333333;
     margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-#score-text {
-    font-size: 1.1em;
-    white-space: pre-wrap;
-    word-break: break-all;
-    line-height: 1.6;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
+.score-summary {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.score-card {
+    flex: 1;
+    min-width: 160px;
+    min-height: 190px;
+    padding: 24px 16px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-sizing: border-box;
+}
+
+.score-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.score-label {
+    font-size: 1.0em;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: auto;
+}
+
+.score-label::before {
+    font-size: 2.2em;
+    margin-bottom: 2px;
+}
+
+/* 1つ目のカード (正答率) */
+.score-card:nth-child(1) {
+    background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+    border: 2px solid #c8e6c9;
+}
+.score-card:nth-child(1) .score-label {
+    color: #2e7d32;
+}
+.score-card:nth-child(1) .score-label::before {
+    content: "📈";
+}
+.score-card:nth-child(1) .score-value {
+    color: #1b5e20;
+}
+
+/* 2つ目のカード (正解 / 問題数) */
+.score-card:nth-child(2) {
+    background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+    border: 2px solid #bbdefb;
+}
+.score-card:nth-child(2) .score-label {
+    color: #1565c0;
+}
+.score-card:nth-child(2) .score-label::before {
+    content: "🎯";
+}
+.score-card:nth-child(2) .score-value {
+    color: #0d47a1;
+}
+
+/* 3つ目のカード (TOEICスコア換算) */
+.score-card:nth-child(3), #score-toeic-card {
+    background: linear-gradient(135deg, #ffffff 0%, #fff8e1 100%);
+    border: 2px solid #ffe082;
+}
+.score-card:nth-child(3) .score-label, #score-toeic-card .score-label {
+    color: #ff8f00;
+}
+.score-card:nth-child(3) .score-label::before, #score-toeic-card .score-label::before {
+    content: "🏆";
+}
+.score-card:nth-child(3) .score-value, #score-toeic-card .score-value {
+    color: #e65100;
+}
+
+.score-sub {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #1565c0;
+    margin-top: 10px;
+    background-color: #e3f2fd;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+}
+
+.score-value {
+    font-size: 2.0em;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-top: 15px;
 }
 
 #results-area {
@@ -294,5 +399,39 @@ h1 {
         padding: 8px 12px; /* パディングを縮小 (12px 18px -> 8px 12px) */
         font-size: 1.0em; /* フォントサイズを縮小 (1.2em -> 1.0em) */
         min-width: 30px; /* 最小幅を縮小 (40px -> 30px) */
+    }
+
+    .score-summary {
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .score-card {
+        flex: 1;
+        min-width: 0;
+        min-height: 150px;
+        padding: 16px 8px;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
+
+    .score-label {
+        font-size: 0.8em;
+        gap: 4px;
+    }
+
+    .score-label::before {
+        font-size: 1.6em;
+    }
+
+    .score-value {
+        font-size: 1.3em;
+        margin-top: 10px;
+    }
+
+    .score-sub {
+        font-size: 0.75em;
+        margin-top: 8px;
+        padding: 2px 8px;
     }
 }

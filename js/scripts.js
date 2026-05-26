@@ -5,7 +5,11 @@ const scores = {};
 // DOM要素の取得
 const questionsArea = document.getElementById('questions-area');
 const resultsText = document.getElementById('results-text');
-const scoreText = document.getElementById('score-text');
+const scorePercent = document.getElementById('score-percent');
+const scoreCount = document.getElementById('score-count');
+const scoreUnanswered = document.getElementById('score-unanswered');
+const scoreToeicCard = document.getElementById('score-toeic-card');
+const scoreToeic = document.getElementById('score-toeic');
 
 /**
  * 指定された問題数に基づいて4択の選択肢エリアを生成する
@@ -128,34 +132,58 @@ function handleScoringClick(event) {
  * 採点結果を更新して表示する
  */
 function updateScorings() {
-    let scoringString = '';
     const questionNumbers = Object.keys(scores).map(Number).sort((a, b) => a - b);
+    const totalCount = questionNumbers.length;
 
-    // 正解の問題数 / 総問題数 の形式で表示
+    // 正解の問題数と採点済みの問題数
     let correctCount = 0;
+    let answeredCount = 0;
     questionNumbers.forEach(qNum => {
         if (scores[qNum] === 'OK') {
             correctCount++;
+            answeredCount++;
+        } else if (scores[qNum] === 'NG') {
+            answeredCount++;
         }
     });
 
-    if (questionNumbers.length > 0) {
-        scoringString = `採点結果: ${correctCount} / ${questionNumbers.length}`;
-        scoringString += `（${((correctCount / questionNumbers.length) * 100).toFixed(2)}%）`;
-        scoringString += `、採点されていない問題数：${questionNumbers.length - correctCount - Object.values(scores).filter(ans => ans === 'NG').length}`;
+    const unansweredCount = totalCount - answeredCount;
+
+    // 1つ目のコンテナ: ％表記
+    const percent = totalCount > 0 ? ((correctCount / totalCount) * 100).toFixed(2) : '0.00';
+    if (scorePercent) {
+        scorePercent.textContent = `${percent}%`;
     }
 
-    // TOEICスコア換算
-    if (questionNumbers.length == 100) { // 495点満点
-        const toeicScore = Math.round((correctCount / 100) * 495);
-        scoringString += `\nTOEICスコア換算: ${toeicScore}点 / 495点`;
-    } else if (questionNumbers.length == 200) { // 990点満点
-        const toeicScore = Math.round((correctCount / 200) * 990);
-        scoringString += `\nTOEICスコア換算: ${toeicScore}点 / 990点`;
+    // 2つ目のコンテナ: 正解 / 問題数
+    if (scoreCount) {
+        scoreCount.textContent = `${correctCount} / ${totalCount}`;
     }
-    
-    scoreText.textContent = scoringString || '採点結果がありません。';
+
+    // 未採点問題数
+    if (scoreUnanswered) {
+        scoreUnanswered.textContent = `未採点: ${unansweredCount}問`;
+    }
+
+    // 3つ目のコンテナ: TOEICスコア換算
+    if (scoreToeicCard && scoreToeic) {
+        if (totalCount === 100) {
+            const toeicScore = Math.round((correctCount / 100) * 495);
+            scoreToeic.textContent = `${toeicScore}点 / 495点`;
+            scoreToeicCard.removeAttribute('hidden');
+            scoreToeicCard.style.display = ''; // CSSで正しくflex/blockされるようにクリア
+        } else if (totalCount === 200) {
+            const toeicScore = Math.round((correctCount / 200) * 990);
+            scoreToeic.textContent = `${toeicScore}点 / 990点`;
+            scoreToeicCard.removeAttribute('hidden');
+            scoreToeicCard.style.display = ''; // 同上
+        } else {
+            scoreToeicCard.setAttribute('hidden', '');
+            scoreToeicCard.style.display = 'none'; // 非表示にする
+        }
+    }
 }
+
 
 /**
  * 解答一覧を更新して表示する
