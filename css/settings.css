@@ -1,0 +1,210 @@
+/* ====================
+    設定画面
+   ==================== */
+body.no-scroll {
+    overflow: hidden;
+}
+
+.input-group label {
+    font-weight: bold;
+    color: #495057;
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+#numQuestions {
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    width: 70px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+button.secondary-button,
+button.danger-button,
+button.primary-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: normal;
+    transition: background-color 0.3s;
+}
+
+button.secondary-button {
+    background-color: #6c757d;
+    color: white;
+}
+
+button.secondary-button:hover {
+    background-color: #5a6268;
+}
+
+button.primary-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+button.primary-button:hover {
+    background-color: #45a049;
+}
+
+button.danger-button {
+    background-color: #f44336;
+    color: white;
+}
+
+button.danger-button:hover {
+    background-color: #da190b;
+}
+
+.screen.is-hidden,
+.screen-overlay.is-hidden,
+.modal.is-hidden {
+    display: none;
+}
+
+.screen-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 900;
+}
+
+.settings-panel {
+    width: min(92vw, 520px);
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.settings-section {
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.settings-section + .settings-section {
+    margin-top: 16px;
+}
+
+.settings-section h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #495057;
+}
+
+.preset-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.preset-button {
+    padding: 8px 14px;
+    border: 2px solid #007bff;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.preset-button:hover {
+    background-color: #e7f2ff;
+}
+
+.preset-button.selected {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #0056b3;
+}
+
+.settings-note {
+    margin: 10px 0 20px;
+    color: #6c757d;
+    font-size: 0.95em;
+}
+
+/* ====================
+    確認モーダル
+   ==================== */
+.modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px 24px;
+    width: min(90vw, 420px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* ====================
+    トースト
+   ==================== */
+.toast {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background-color: rgba(33, 37, 41, 0.92);
+    color: #ffffff;
+    font-size: 0.95em;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1100;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .settings-panel {
+        padding: 20px;
+    }
+
+    .preset-group {
+        flex-wrap: wrap;
+    }
+}

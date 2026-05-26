@@ -5,45 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOEIC 解答メモ</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/settings.css">
     <link rel="stylesheet" href="css/timer.css">
     <script src="js/scripts.js" defer></script>
+    <script src="js/settings.js" defer></script>
     <script src="js/timer.js" defer></script>
 </head>
 <body>
     <div class="container">
         <h1>TOEIC 解答メモ 📝</h1>
 
-        <div class="control-panel">
-            <div class="input-group">
-                <label for="numQuestions">問題数 (4択の組):</label>
-                <input type="number" id="numQuestions" min="1" value="10">
+        <div class="top-actions">
+            <div class="current-settings">
+                <span class="label">問題数:</span>
+                <span id="current-question-count">10</span>
             </div>
             <div class="button-group">
-                <button id="generate-btn">生成</button>
-                <button id="reset-btn" class="clear-button">クリア</button>
+                <button id="open-settings-btn" class="secondary-button">設定</button>
             </div>
         </div>
 
-        <div id="timer-container">
-            <h2>残り時間</h2>
-            <div id="timer-display" contenteditable="true">60:00</div>
-            <button id="start-button">タイマー開始</button>
-            <button id="reset-button">リセット</button>
+        <div id="main-screen" class="screen">
+            <div id="timer-container">
+                <h2>残り時間</h2>
+                <div id="timer-display" contenteditable="true">60:00</div>
+                <button id="start-button">タイマー開始</button>
+                <button id="reset-button">リセット</button>
+            </div>
+
+            <audio id="timer-alarm" src="sounds/alarm.mp3" preload="auto"></audio>
+
+            <div id="questions-area"></div>
+
+            <div id="score-area">
+                <h2>🥇 採点結果</h2>
+                <p id="score-text">採点結果がありません。</p>
+            </div>
+
+            <div id="results-area">
+                <h2>✅ 解答一覧</h2>
+                <p id="results-text">設定で問題数を変更して「反映」を押してください。</p>
+            </div>
         </div>
 
-        <audio id="timer-alarm" src="sounds/alarm.mp3" preload="auto"></audio>
+        <div id="settings-screen" class="screen-overlay is-hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+            <div class="settings-panel">
+                <div class="settings-header">
+                    <h2 id="settings-title">設定</h2>
+                    <button id="close-settings-btn" class="secondary-button">戻る</button>
+                </div>
 
-        <div id="questions-area"></div>
+                <div class="settings-section">
+                    <h3>問題数</h3>
+                    <div class="preset-group">
+                        <button class="preset-button" data-value="100">100問</button>
+                        <button class="preset-button" data-value="200">200問</button>
+                    </div>
+                    <div class="input-group">
+                        <label for="numQuestions">問題数 (4択の組):</label>
+                        <input type="number" id="numQuestions" min="1" value="10">
+                    </div>
+                    <p class="settings-note">※問題数を変更すると既存の選択肢は解除されます。</p>
+                    <div class="button-group">
+                        <button id="apply-settings-btn" class="primary-button">反映</button>
+                    </div>
+                </div>
 
-        <div id="score-area">
-            <h2>🥇 採点結果</h2>
-            <p id="score-text">採点結果がありません。</p>
+                <div class="settings-section">
+                    <h3>回答</h3>
+                    <p class="settings-note">現在の選択と採点をすべてリセットします。</p>
+                    <div class="button-group">
+                        <button id="reset-answers-btn" class="danger-button">回答リセット</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div id="results-area">
-            <h2>✅ 解答一覧</h2>
-            <p id="results-text">問題数を設定して「生成」ボタンを押してください。</p>
+        <div id="confirm-modal" class="modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+            <div class="modal-content">
+                <h3 id="confirm-title">確認</h3>
+                <p id="confirm-message">既存の選択肢は解除されます。よろしいですか？</p>
+                <div class="modal-actions">
+                    <button id="confirm-cancel-btn" class="secondary-button">キャンセル</button>
+                    <button id="confirm-apply-btn" class="danger-button">変更する</button>
+                </div>
+            </div>
         </div>
+
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
     </div>
 
 </body>

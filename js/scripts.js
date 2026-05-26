@@ -3,29 +3,15 @@ const answers = {};
 const scores = {};
 
 // DOM要素の取得
-const numQuestionsInput = document.getElementById('numQuestions');
-const generateButton = document.getElementById('generate-btn');
-const clearButton = document.getElementById('reset-btn');
 const questionsArea = document.getElementById('questions-area');
 const resultsText = document.getElementById('results-text');
 const scoreText = document.getElementById('score-text');
 
-// ====================
-// イベントリスナーの設定
-// ====================
-document.addEventListener('DOMContentLoaded', () => {
-    generateQuestions(); // ページ読み込み時に初期の問題を生成 (デフォルト10問)
-    
-    // ボタンにイベントリスナーを追加
-    generateButton.addEventListener('click', generateQuestions);
-    clearButton.addEventListener('click', resetAll);
-});
-
 /**
  * 指定された問題数に基づいて4択の選択肢エリアを生成する
  */
-function generateQuestions() {
-    const num = parseInt(numQuestionsInput.value);
+function generateQuestions(count) {
+    const num = parseInt(count, 10);
     questionsArea.innerHTML = ''; // 既存のコンテンツをクリア
 
     if (isNaN(num) || num <= 0) {
@@ -33,14 +19,7 @@ function generateQuestions() {
         return;
     }
 
-    // answersオブジェクトを再初期化
-    for (let i = 1; i <= num; i++) {
-        answers[i] = ''; // 初期値は空
-    }
-    // scoresオブジェクトを再初期化
-    for (let i = 1; i <= num; i++) {
-        scores[i] = ''; // 初期値は空
-    }
+    resetAnswerData(num);
     
     updateResults(); // 結果表示を初期化
     updateScorings(); // 採点表示を初期化
@@ -72,6 +51,16 @@ function generateQuestions() {
     document.querySelectorAll('.scoring').forEach(scoring => {
         scoring.addEventListener('click', handleScoringClick);
     });
+}
+
+function resetAnswerData(num) {
+    Object.keys(answers).forEach(key => delete answers[key]);
+    Object.keys(scores).forEach(key => delete scores[key]);
+
+    for (let i = 1; i <= num; i++) {
+        answers[i] = ''; // 初期値は空
+        scores[i] = ''; // 初期値は空
+    }
 }
 
 /**
@@ -189,25 +178,6 @@ function updateResults() {
         }
     }
     
-    resultsText.textContent = resultString || '問題数を設定して「生成」ボタンを押してください。';
+    resultsText.textContent = resultString || '設定で問題数を変更して「反映」を押してください。';
 }
 
-/**
- * 全ての選択とデータをリセットする
- */
-function resetAll() {
-    // answersオブジェクトをリセット (現在の問題数に基づいて再初期化)
-    const num = parseInt(numQuestionsInput.value);
-    for (let i = 1; i <= num; i++) {
-        answers[i] = ''; 
-    }
-    
-    // 選択のハイライトを全て解除
-    document.querySelectorAll('.option.selected').forEach(opt => {
-        opt.classList.remove('selected');
-    });
-
-    // 結果表示を更新
-    updateResults();
-    alert('解答をリセットしました。');
-}

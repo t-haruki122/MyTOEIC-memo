@@ -9,6 +9,7 @@ body {
     color: #333;
 }
 
+
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -29,6 +30,35 @@ h1 {
 /* ====================
     コントロールパネル
    ==================== */
+.top-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.current-settings {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-weight: bold;
+    color: #495057;
+}
+
+.current-settings .label {
+    font-size: 1.05em;
+}
+
+.current-settings #current-question-count {
+    font-size: 1.3em;
+    color: #007bff;
+}
+
 .control-panel {
     display: flex;
     justify-content: space-between;
@@ -41,25 +71,16 @@ h1 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.input-group label {
-    font-weight: bold;
-    color: #495057;
-    margin-right: 10px;
-    font-size: 1.1em;
-}
 
-#numQuestions {
-    padding: 8px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    width: 70px;
-    text-align: center;
-    font-size: 1.1em;
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .button-group button {
     padding: 10px 20px;
-    margin-left: 10px;
+    margin-left: 0;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -87,6 +108,7 @@ h1 {
     background-color: #c82333;
     transform: translateY(-1px);
 }
+
 
 /* ====================
     問題エリア
@@ -231,6 +253,15 @@ h1 {
 }
 
 @media (max-width: 768px) {
+    .top-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .current-settings {
+        justify-content: space-between;
+    }
 
     /* 選択肢と採点エリアを収めるための全体調整 */
     .question {
